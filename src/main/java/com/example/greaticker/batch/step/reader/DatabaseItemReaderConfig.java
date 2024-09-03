@@ -6,6 +6,7 @@ import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
@@ -14,12 +15,13 @@ public class DatabaseItemReaderConfig {
 
     @Bean(name = "userWhoDoesNotGetStickerYesterdayReader")
     public JpaPagingItemReader<User> userWhoDoesNotGetStickerYesterdayReader(EntityManagerFactory entityManagerFactory) {
-        String jpqlQuery = "SELECT u FROM User u WHERE u.lastGet <= :date";
+        String jpqlQuery = "SELECT u FROM User u WHERE u.lastGet < :date";
 
         JpaPagingItemReader<User> reader = new JpaPagingItemReader<>();
         reader.setQueryString(jpqlQuery);
         reader.setEntityManagerFactory(entityManagerFactory);
-        reader.setParameterValues(Collections.singletonMap("date", LocalDateTime.now().minusDays(2)));
+        LocalDate today = LocalDateTime.now().toLocalDate();
+        reader.setParameterValues(Collections.singletonMap("date", today.minusDays(1).atStartOfDay()));
         reader.setPageSize(10);
         reader.setSaveState(true);
         try {
