@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaTemplate;
 
-import static com.example.greaticker.batch.constants.KafkaTopicNames.USERS_TO_REFRESH_PRJOECT;
+import static com.example.greaticker.batch.constants.KafkaTopicNames.USERS_TO_REFRESH_PROJECT;
 
 @Configuration
 public class KafkaItemWriterConfig {
@@ -14,7 +14,7 @@ public class KafkaItemWriterConfig {
     public ItemWriter<String> userIdWhoDoesNotGetStickerYesterdayPublisher(KafkaTemplate<String, String> kafkaTemplate) {
         return items -> {
             for (String item : items) {
-                kafkaTemplate.send(USERS_TO_REFRESH_PRJOECT, item);
+                kafkaTemplate.send(USERS_TO_REFRESH_PROJECT, item);
             }
         };
     }

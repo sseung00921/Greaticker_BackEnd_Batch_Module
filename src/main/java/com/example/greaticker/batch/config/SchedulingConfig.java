@@ -28,8 +28,9 @@ public class SchedulingConfig {
         this.job = job;
     }
 
-    @Scheduled(cron = "0 * * * * *") // 매 시간마다 실행
+    @Scheduled(cron = "0 0 0 * * ?") // 매일 자정마다 실행
     public void runUserWhoDoseNotGetStickerYesterdayRefreshProjectJob() {
+        System.out.println("Batch is In Progress");
         JobParameters jobParameters = new JobParametersBuilder()
                 .addLong("time", System.currentTimeMillis())
                 .toJobParameters();
