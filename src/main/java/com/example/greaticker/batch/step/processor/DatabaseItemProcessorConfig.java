@@ -10,7 +10,7 @@ public class DatabaseItemProcessorConfig {
 
     @Bean(name = "userEntityToUserIdStrProcessor")
     public ItemProcessor<User, String> userEntityToUserIdStrProcessor() {
-        return item -> String.valueOf(item.getId());
+        return item -> String.valueOf(item.getNowProjectId());
     }
 
 }

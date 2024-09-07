@@ -2,9 +2,9 @@ spring:
   application:
     name: greaticker.batch
   datasource:
-    url: jdbc:mysql://localhost:3306/greaticker?allowPublicKeyRetrieval=true&useSSL=false
-    username: sseung00921
-    password: 1234
+    url: ${{ secrets.DATASOURCE_URL }}
+    username: ${{ secrets.DATASOURCE_USERNAME }}
+    password: ${{ secrets.DATASOURCE_PASSWORD }}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   sql:
@@ -19,14 +19,16 @@ spring:
     jdbc:
       initialize-schema: always
 
-  kafka:
-    bootstrap-servers: localhost:9093  # Kafka ?? ??
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    consumer:
-      group-id: myGroup
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-
+#  kafka:
+#    bootstrap-servers: kafka:9092  # Kafka ?? ??
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    consumer:
+#      group-id: myGroup
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    properties:
+#      security:
+#        protocol: PLAINTEXT

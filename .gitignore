@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+## applictaion-*.yml은 미포함
+/src/main/resources/application*
+
+## applictaion.yml은 포함
+!/src/main/resources/application.yml
