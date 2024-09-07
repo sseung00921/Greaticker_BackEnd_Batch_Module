@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2-1 application.yml 치환
+      # 2-1 application.yml 치환.
       - name: Replace environment variables in application.yml
         uses: microsoft/variable-substitution@v1
         with:
