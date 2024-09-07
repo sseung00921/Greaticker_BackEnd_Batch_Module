@@ -25,7 +25,7 @@ public class DatabaseItemWriterConfig {
 
     @Transactional
     public void updateProjectStateToReset(String nowProjectId) {
-        String jpqlQuery = "UPDATE Project p SET p.projectState = 'RESET' " +
+        String jpqlQuery = "UPDATE Project p SET p.state = 'RESET' " +
                 "WHERE p.id = :nowProjectId";
 
         entityManager.createQuery(jpqlQuery)
