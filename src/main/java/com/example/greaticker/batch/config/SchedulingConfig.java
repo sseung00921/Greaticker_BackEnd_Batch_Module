@@ -16,6 +16,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Configuration
 public class SchedulingConfig {
 
@@ -31,6 +34,9 @@ public class SchedulingConfig {
     @Scheduled(cron = "0 0 0 * * ?") // 매일 자정마다 실행
     public void runUserWhoDoseNotGetStickerYesterdayRefreshProjectJob() {
         System.out.println("Batch is In Progress");
+        LocalDate today = LocalDateTime.now().toLocalDate();
+        System.out.println(today);
+        System.out.println(today.minusDays(1).atStartOfDay());
         JobParameters jobParameters = new JobParametersBuilder()
                 .addLong("time", System.currentTimeMillis())
                 .toJobParameters();
