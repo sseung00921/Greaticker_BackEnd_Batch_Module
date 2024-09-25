@@ -21,6 +21,8 @@ public class DatabaseItemReaderConfig {
         reader.setQueryString(jpqlQuery);
         reader.setEntityManagerFactory(entityManagerFactory);
         LocalDate today = LocalDateTime.now().toLocalDate();
+        System.out.println(today + " inReadConfigToday");
+        System.out.println(today.minusDays(1).atStartOfDay() + " inReadConfigResetBaseTime");
         reader.setParameterValues(Collections.singletonMap("date", today.minusDays(1).atStartOfDay()));
 //        LocalDateTime now = LocalDateTime.now();
 //        LocalDateTime resetBaseTimeInKR = now.minusDays(1).minusMinutes(1).plusHours(9); //kr기준이라서 9시간을 더해줌.
