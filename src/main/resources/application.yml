@@ -14,10 +14,21 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+    show-sql: true  # 실행되는 SQL 쿼리를 출력
+    properties:
+      hibernate:
+        format_sql: true  # SQL 쿼리를 보기 쉽게 포맷
+        use_sql_comments: true  # 쿼리 주석도 출력 (선택 사항)
+
 
   batch:
     jdbc:
       initialize-schema: always
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG  # SQL 쿼리 로깅 레벨 설정
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE  # 바인딩된 파라미터도 로깅
 
 #  kafka:
 #    bootstrap-servers: kafka:9092  # Kafka ?? ??

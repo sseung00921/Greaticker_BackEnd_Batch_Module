@@ -22,6 +22,9 @@ public class DatabaseItemReaderConfig {
         reader.setEntityManagerFactory(entityManagerFactory);
         LocalDate today = LocalDateTime.now().toLocalDate();
         reader.setParameterValues(Collections.singletonMap("date", today.minusDays(1).atStartOfDay()));
+//        LocalDateTime now = LocalDateTime.now();
+//        LocalDateTime resetBaseTimeInKR = now.minusDays(1).minusMinutes(1).plusHours(9); //kr기준이라서 9시간을 더해줌.
+//        reader.setParameterValues(Collections.singletonMap("date", resetBaseTimeInKR));
         reader.setPageSize(10);
         reader.setSaveState(true);
         try {

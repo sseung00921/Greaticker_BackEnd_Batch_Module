@@ -35,7 +35,7 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "hit_favorite_list", nullable = false, columnDefinition = "varchar(255) default '[]'")
     private String hitFavoriteList;
 
-    @Column(name = "last_Get", nullable = true)
+    @Column(name = "last_get", nullable = true)
     private LocalDateTime lastGet;
 
     @Column(name = "now_project_id", nullable = true)
