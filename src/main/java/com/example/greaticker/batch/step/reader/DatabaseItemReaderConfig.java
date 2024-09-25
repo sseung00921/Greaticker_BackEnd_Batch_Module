@@ -2,6 +2,7 @@ package com.example.greaticker.batch.step.reader;
 
 import com.example.greaticker.batch.model.user.User;
 import jakarta.persistence.EntityManagerFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import java.util.Collections;
 public class DatabaseItemReaderConfig {
 
     @Bean(name = "userWhoDoesNotGetStickerYesterdayReader")
+    @StepScope
     public JpaPagingItemReader<User> userWhoDoesNotGetStickerYesterdayReader(EntityManagerFactory entityManagerFactory) {
         String jpqlQuery = "SELECT u FROM User u WHERE u.lastGet < :date";
 
