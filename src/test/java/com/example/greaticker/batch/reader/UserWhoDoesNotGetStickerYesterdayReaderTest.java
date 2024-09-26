@@ -1,34 +1,37 @@
 package com.example.greaticker.batch.reader;
 
 import com.example.greaticker.batch.model.user.User;
-import com.example.greaticker.batch.step.reader.DatabaseItemReaderConfig;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.database.JpaPagingItemReader;
+import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLOutput;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-@Import(DatabaseItemReaderConfig.class)
+@SpringBootTest
+@SpringBatchTest
 @ActiveProfiles("test")
 public class UserWhoDoesNotGetStickerYesterdayReaderTest {
 
     @Autowired
-    private TestEntityManager entityManager;
+    private EntityManagerFactory entityManagerFactory;
+
+    private EntityManager entityManager;
+
 
     @Autowired
     @Qualifier("userWhoDoesNotGetStickerYesterdayReader")
@@ -36,6 +39,13 @@ public class UserWhoDoesNotGetStickerYesterdayReaderTest {
 
     @BeforeEach
     public void setUp() {
+        // EntityManager 수동으로 생성
+        entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        // 트랜잭션 시작
+        transaction.begin();
+
         // Creating User1
         User user1 = new User();
         user1.setNickname("User1");
@@ -75,8 +85,8 @@ public class UserWhoDoesNotGetStickerYesterdayReaderTest {
         user3.setUpdatedDateTime(LocalDateTime.of(2024, 9, 3, 10, 0, 0));
         entityManager.persist(user3);
 
-        entityManager.flush();
-        entityManager.getEntityManager().getTransaction().commit();
+        // 커밋
+        transaction.commit();
     }
 
     @Test
